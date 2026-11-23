@@ -1,5 +1,4 @@
-'use strict';
-
-const pipe = (...fns) => (x) => null;
-
-module.exports = { pipe };
+const pipe = (...fns) => {
+  for (const f of fns) if (typeof f !== 'function') throw new Error('Not a function');
+  return (x) => fns.reduce((v, f) => f(v), x);
+};
